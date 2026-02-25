@@ -6,7 +6,7 @@
     <groupId>ru.kievsan</groupId>
     <artifactId>ChuserBot</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>chatterbot</name>
+    <name>chuserbot</name>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
