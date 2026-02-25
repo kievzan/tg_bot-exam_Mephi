@@ -13,7 +13,7 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <telegrambots.version>9.2.0</telegrambots.version>
+        <telegrambots.version>9.4.0</telegrambots.version>
         <poi.version>5.5.1</poi.version>
         <jackson.version>2.17.2</jackson.version>
         <slf4j.version>2.0.13</slf4j.version>
@@ -22,17 +22,19 @@
     </properties>
 
     <dependencies>
-        <!-- Telegram bot: long polling -->
+        <!-- Telegram bot: long polling. Source: https://mvnrepository.com/artifact/org.telegram/telegrambots-longpolling -->
         <dependency>
             <groupId>org.telegram</groupId>
             <artifactId>telegrambots-longpolling</artifactId>
             <version>${telegrambots.version}</version>
+            <scope>compile</scope>
         </dependency>
-        <!-- Telegram bot: client -->
+        <!-- Telegram bot: client. Source: https://mvnrepository.com/artifact/org.telegram/telegrambots-client -->
         <dependency>
             <groupId>org.telegram</groupId>
             <artifactId>telegrambots-client</artifactId>
             <version>${telegrambots.version}</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- JSON: Jackson -->
