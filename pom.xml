@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.hackathon</groupId>
+    <groupId>ru.kievsan</groupId>
     <artifactId>ChuserBot</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>chatlas</name>
+    <name>chatterbot</name>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
