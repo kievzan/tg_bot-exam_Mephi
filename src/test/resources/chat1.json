@@ -1,0 +1,125 @@
+{
+  "name": "Sergey",
+  "type": "personal_chat",
+  "id": 123123123,
+  "messages": [
+    {
+      "id": 13276,
+      "type": "message",
+      "date": "2025-12-06T18:20:58",
+      "date_unixtime": "1765034458",
+      "from": "Сергей Киевский",
+      "from_id": "user123456789",
+      "text": "first message",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "first message"
+        }
+      ]
+    },
+    {
+      "id": 13277,
+      "type": "message",
+      "date": "2025-12-06T18:21:02",
+      "date_unixtime": "1765034462",
+      "from": "Сергей Киевский",
+      "from_id": "user123456789",
+      "text": "second message",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "second message"
+        }
+      ]
+    },
+    {
+      "id": 13278,
+      "type": "message",
+      "date": "2025-12-06T18:22:01",
+      "date_unixtime": "1765034521",
+      "from": "Sergey Kievskiy",
+      "from_id": "user123123123",
+      "text": "third message",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "third message"
+        }
+      ]
+    },
+    {
+      "id": 13279,
+      "type": "message",
+      "date": "2025-12-06T18:22:46",
+      "date_unixtime": "1765034566",
+      "from": "Сергей Киевский",
+      "from_id": "user123456789",
+      "text": [
+        "fourth message ",
+        {
+          "type": "mention",
+          "text": "@skievskiy"
+        },
+        " mentioned"
+      ],
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "fourth message "
+        },
+        {
+          "type": "mention",
+          "text": "@skievskiy"
+        },
+        {
+          "type": "plain",
+          "text": " mentioned"
+        }
+      ]
+    },
+    {
+      "id": 13280,
+      "type": "message",
+      "date": "2025-12-07T18:46:59",
+      "date_unixtime": "1765122419",
+      "from": "Сергей Киевский",
+      "from_id": "user123456789",
+      "text": [
+        "fifth message ",
+        {
+          "type": "mention",
+          "text": "@skievskiy"
+        },
+        " qwe ",
+        {
+          "type": "mention",
+          "text": "@skievskiywork"
+        },
+        " ewq"
+      ],
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "fifth message "
+        },
+        {
+          "type": "mention",
+          "text": "@skievskiy"
+        },
+        {
+          "type": "plain",
+          "text": " qwe "
+        },
+        {
+          "type": "mention",
+          "text": "@skievskiy"
+        },
+        {
+          "type": "plain",
+          "text": " ewq"
+        }
+      ]
+    }
+  ]
+}

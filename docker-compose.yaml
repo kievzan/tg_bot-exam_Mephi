@@ -1,0 +1,8 @@
+services:
+  chuser-bot:
+    build: .
+    container_name: chuser-bot
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - JAVA_OPTS=-Xms256m -Xmx256m
+    restart: unless-stopped
