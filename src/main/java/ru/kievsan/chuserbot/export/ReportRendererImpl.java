@@ -3,12 +3,8 @@ package ru.kievsan.chuserbot.export;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import ru.kievsan.chuserbot.config.BotConfig;
-import ru.kievsan.chuserbot.domain.ChatMsgAnalysisResult;
-import ru.kievsan.chuserbot.domain.Mention;
-import ru.kievsan.chuserbot.domain.Member;
-import ru.kievsan.chuserbot.domain.ReportExcelResult;
-import ru.kievsan.chuserbot.domain.ReportResult;
-import ru.kievsan.chuserbot.domain.ReportTextResult;
+import ru.kievsan.chuserbot.domain.*;
+import ru.kievsan.chuserbot.domain.ReportExportResult;
 
 import java.io.ByteArrayOutputStream;
 import java.time.LocalDate;
@@ -22,19 +18,19 @@ import java.util.List;
 public class ReportRendererImpl implements ReportRenderer {
 
     @Override
-    public ReportResult render(ChatMsgAnalysisResult analysisResult, String fileName) throws ReportRenderException {
+    public ReportExportResult render(ChatMsgAnalysisResult analysisResult, String fileName) throws ReportRenderException {
         try {
             int totalCount = analysisResult.getTotalCount();
 
             if (totalCount < BotConfig.EXCEL_THRESHOLD) {
                 // Генерируем текстовый ответ.
                 String text = renderText(analysisResult, fileName);
-                return new ReportTextResult(fileName, text);
+                return new ReportTextExportResult(fileName, text);
             } else {
                 // Генерируем Excel-файл.
                 byte[] excelBytes = renderExcel(analysisResult);
                 String excelFileName = generateExcelFileName(fileName);
-                return new ReportExcelResult(fileName, excelBytes, excelFileName);
+                return new ReportExcelExportResult(fileName, excelBytes, excelFileName);
             }
         } catch (Exception e) {
             throw new ReportRenderException("Failed to render report", e);

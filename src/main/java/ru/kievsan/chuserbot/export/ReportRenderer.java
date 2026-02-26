@@ -1,7 +1,7 @@
 package ru.kievsan.chuserbot.export;
 
 import ru.kievsan.chuserbot.domain.ChatMsgAnalysisResult;
-import ru.kievsan.chuserbot.domain.ReportResult;
+import ru.kievsan.chuserbot.domain.ReportExportResult;
 
 /**
  * Интерфейс для форматирования результата анализа.
@@ -13,10 +13,10 @@ public interface ReportRenderer {
      *
      * @param analysisResult результат анализа чата.
      * @param fileName       имя исходного файла экспорта.
-     * @return результат форматирования (ReportTextResult или ReportExcelResult).
+     * @return результат форматирования (ReportTextExportResult или ReportExcelExportResult).
      * @throws ReportRenderException если не удалось сформировать результат.
      */
-    ReportResult render(ChatMsgAnalysisResult analysisResult, String fileName) throws ReportRenderException;
+    ReportExportResult render(ChatMsgAnalysisResult analysisResult, String fileName) throws ReportRenderException;
 
     /**
      * Исключение при форматировании отчета.

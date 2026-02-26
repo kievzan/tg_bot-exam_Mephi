@@ -44,10 +44,10 @@ class ReportRendererImplTest {
                 Set.of(new Mention("@username1"))
         );
 
-        ReportResult reportResult = renderer.render(result, "test.json");
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
 
-        assertInstanceOf(ReportTextResult.class, reportResult);
-        ReportTextResult textResult = (ReportTextResult) reportResult;
+        assertInstanceOf(ReportTextExportResult.class, reportExportResult);
+        ReportTextExportResult textResult = (ReportTextExportResult) reportExportResult;
         assertEquals("test.json", textResult.fileName());
         assertNotNull(textResult.text());
         assertTrue(textResult.text().contains("Файл: test.json"));
@@ -58,10 +58,10 @@ class ReportRendererImplTest {
     void returnExcelWhenTotalCountGreaterOrEqualThanThreshold() throws Exception {
         ChatMsgAnalysisResult result = createLargeResult(BotConfig.EXCEL_THRESHOLD);
 
-        ReportResult reportResult = renderer.render(result, "test.json");
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
 
-        assertInstanceOf(ReportExcelResult.class, reportResult);
-        ReportExcelResult excelResult = (ReportExcelResult) reportResult;
+        assertInstanceOf(ReportExcelExportResult.class, reportExportResult);
+        ReportExcelExportResult excelResult = (ReportExcelExportResult) reportExportResult;
         assertEquals("test.json", excelResult.fileName());
         assertNotNull(excelResult.excelBytes());
         assertNotNull(excelResult.excelFileName());
@@ -72,18 +72,18 @@ class ReportRendererImplTest {
     void returnExcelWhenTotalCountEqualsThreshold() throws Exception {
         ChatMsgAnalysisResult result = createLargeResult(BotConfig.EXCEL_THRESHOLD);
 
-        ReportResult reportResult = renderer.render(result, "test.json");
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
 
-        assertInstanceOf(ReportExcelResult.class, reportResult);
+        assertInstanceOf(ReportExcelExportResult.class, reportExportResult);
     }
 
     @Test
     void returnTextWhenTotalCountEqualsThresholdMinusOne() throws Exception {
         ChatMsgAnalysisResult result = createLargeResult(BotConfig.EXCEL_THRESHOLD - 1);
 
-        ReportResult reportResult = renderer.render(result, "test.json");
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
 
-        assertInstanceOf(ReportTextResult.class, reportResult);
+        assertInstanceOf(ReportTextExportResult.class, reportExportResult);
     }
 
     @Test
@@ -99,9 +99,9 @@ class ReportRendererImplTest {
                 )
         );
 
-        ReportResult reportResult = renderer.render(result, "test.json");
-        assertInstanceOf(ReportTextResult.class, reportResult);
-        ReportTextResult textResult = (ReportTextResult) reportResult;
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
+        assertInstanceOf(ReportTextExportResult.class, reportExportResult);
+        ReportTextExportResult textResult = (ReportTextExportResult) reportExportResult;
         String text = textResult.text();
 
         assertTrue(text.contains("Количество участников: 2"));
@@ -121,9 +121,9 @@ class ReportRendererImplTest {
                 Set.of()
         );
 
-        ReportResult reportResult = renderer.render(result, "test.json");
-        assertInstanceOf(ReportTextResult.class, reportResult);
-        ReportTextResult textResult = (ReportTextResult) reportResult;
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
+        assertInstanceOf(ReportTextExportResult.class, reportExportResult);
+        ReportTextExportResult textResult = (ReportTextExportResult) reportExportResult;
         String text = textResult.text();
 
         assertTrue(text.contains("Участники:"));
@@ -137,9 +137,9 @@ class ReportRendererImplTest {
                 Set.of()
         );
 
-        ReportResult reportResult = renderer.render(result, "test.json");
-        assertInstanceOf(ReportTextResult.class, reportResult);
-        ReportTextResult textResult = (ReportTextResult) reportResult;
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
+        assertInstanceOf(ReportTextExportResult.class, reportExportResult);
+        ReportTextExportResult textResult = (ReportTextExportResult) reportExportResult;
         String text = textResult.text();
 
         assertTrue(text.contains("Участники:"));
@@ -150,9 +150,9 @@ class ReportRendererImplTest {
     void createExcelWithCorrectSheetNames() throws Exception {
         ChatMsgAnalysisResult result = createLargeResult(BotConfig.EXCEL_THRESHOLD);
 
-        ReportResult reportResult = renderer.render(result, "test.json");
-        assertInstanceOf(ReportExcelResult.class, reportResult);
-        ReportExcelResult excelResult = (ReportExcelResult) reportResult;
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
+        assertInstanceOf(ReportExcelExportResult.class, reportExportResult);
+        ReportExcelExportResult excelResult = (ReportExcelExportResult) reportExportResult;
 
         try (Workbook workbook = new XSSFWorkbook(new ByteArrayInputStream(excelResult.excelBytes()))) {
             assertEquals(2, workbook.getNumberOfSheets());
@@ -165,9 +165,9 @@ class ReportRendererImplTest {
     void createExcelWithCorrectParticipantsHeaders() throws Exception {
         ChatMsgAnalysisResult result = createLargeResult(BotConfig.EXCEL_THRESHOLD);
 
-        ReportResult reportResult = renderer.render(result, "test.json");
-        assertInstanceOf(ReportExcelResult.class, reportResult);
-        ReportExcelResult excelResult = (ReportExcelResult) reportResult;
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
+        assertInstanceOf(ReportExcelExportResult.class, reportExportResult);
+        ReportExcelExportResult excelResult = (ReportExcelExportResult) reportExportResult;
 
         try (Workbook workbook = new XSSFWorkbook(new ByteArrayInputStream(excelResult.excelBytes()))) {
             Sheet participantsSheet = workbook.getSheetAt(0);
@@ -183,9 +183,9 @@ class ReportRendererImplTest {
     void createExcelWithCorrectMentionsHeaders() throws Exception {
         ChatMsgAnalysisResult result = createLargeResult(BotConfig.EXCEL_THRESHOLD);
 
-        ReportResult reportResult = renderer.render(result, "test.json");
-        assertInstanceOf(ReportExcelResult.class, reportResult);
-        ReportExcelResult excelResult = (ReportExcelResult) reportResult;
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
+        assertInstanceOf(ReportExcelExportResult.class, reportExportResult);
+        ReportExcelExportResult excelResult = (ReportExcelExportResult) reportExportResult;
 
         try (Workbook workbook = new XSSFWorkbook(new ByteArrayInputStream(excelResult.excelBytes()))) {
             Sheet mentionsSheet = workbook.getSheetAt(1);
@@ -208,9 +208,9 @@ class ReportRendererImplTest {
                 createMentions(BotConfig.EXCEL_THRESHOLD - 2)
         );
 
-        ReportResult reportResult = renderer.render(result, "test.json");
-        assertInstanceOf(ReportExcelResult.class, reportResult);
-        ReportExcelResult excelResult = (ReportExcelResult) reportResult;
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
+        assertInstanceOf(ReportExcelExportResult.class, reportExportResult);
+        ReportExcelExportResult excelResult = (ReportExcelExportResult) reportExportResult;
 
         try (Workbook workbook = new XSSFWorkbook(new ByteArrayInputStream(excelResult.excelBytes()))) {
             Sheet participantsSheet = workbook.getSheetAt(0);
@@ -247,9 +247,9 @@ class ReportRendererImplTest {
                 )
         );
 
-        ReportResult reportResult = renderer.render(result, "test.json");
-        assertInstanceOf(ReportExcelResult.class, reportResult);
-        ReportExcelResult excelResult = (ReportExcelResult) reportResult;
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
+        assertInstanceOf(ReportExcelExportResult.class, reportExportResult);
+        ReportExcelExportResult excelResult = (ReportExcelExportResult) reportExportResult;
 
         try (Workbook workbook = new XSSFWorkbook(new ByteArrayInputStream(excelResult.excelBytes()))) {
             Sheet mentionsSheet = workbook.getSheetAt(1);
@@ -279,9 +279,9 @@ class ReportRendererImplTest {
                 Set.of(new Mention("@username1"))
         );
 
-        ReportResult reportResult = renderer.render(result, "test.json");
-        assertInstanceOf(ReportTextResult.class, reportResult);
-        ReportTextResult textResult = (ReportTextResult) reportResult;
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
+        assertInstanceOf(ReportTextExportResult.class, reportExportResult);
+        ReportTextExportResult textResult = (ReportTextExportResult) reportExportResult;
         String text = textResult.text();
         assertTrue(text.contains("Количество участников: 0"));
         assertTrue(text.contains("Количество упоминаний: 1"));
@@ -294,9 +294,9 @@ class ReportRendererImplTest {
                 Set.of()
         );
 
-        ReportResult reportResult = renderer.render(result, "test.json");
-        assertInstanceOf(ReportTextResult.class, reportResult);
-        ReportTextResult textResult = (ReportTextResult) reportResult;
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
+        assertInstanceOf(ReportTextExportResult.class, reportExportResult);
+        ReportTextExportResult textResult = (ReportTextExportResult) reportExportResult;
         String text = textResult.text();
         assertTrue(text.contains("Количество участников: 1"));
         assertTrue(text.contains("Количество упоминаний: 0"));
@@ -314,9 +314,9 @@ class ReportRendererImplTest {
                 Set.of()
         );
 
-        ReportResult reportResult = renderer.render(result, "test.json");
-        assertInstanceOf(ReportExcelResult.class, reportResult);
-        ReportExcelResult excelResult = (ReportExcelResult) reportResult;
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
+        assertInstanceOf(ReportExcelExportResult.class, reportExportResult);
+        ReportExcelExportResult excelResult = (ReportExcelExportResult) reportExportResult;
 
         try (Workbook workbook = new XSSFWorkbook(new ByteArrayInputStream(excelResult.excelBytes()))) {
             assertEquals(2, workbook.getNumberOfSheets());
@@ -332,9 +332,9 @@ class ReportRendererImplTest {
                 createMentions(BotConfig.EXCEL_THRESHOLD)
         );
 
-        ReportResult reportResult = renderer.render(result, "test.json");
-        assertInstanceOf(ReportExcelResult.class, reportResult);
-        ReportExcelResult excelResult = (ReportExcelResult) reportResult;
+        ReportExportResult reportExportResult = renderer.render(result, "test.json");
+        assertInstanceOf(ReportExcelExportResult.class, reportExportResult);
+        ReportExcelExportResult excelResult = (ReportExcelExportResult) reportExportResult;
 
         try (Workbook workbook = new XSSFWorkbook(new ByteArrayInputStream(excelResult.excelBytes()))) {
             assertEquals(2, workbook.getNumberOfSheets());

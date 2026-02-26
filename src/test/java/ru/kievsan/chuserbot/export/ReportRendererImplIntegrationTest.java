@@ -5,14 +5,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.Test;
 import ru.kievsan.chuserbot.analytics.ChatMessageAnalyzerImpl;
 import ru.kievsan.chuserbot.config.BotConfig;
-import ru.kievsan.chuserbot.domain.ChatMsgAnalysisResult;
-import ru.kievsan.chuserbot.domain.ReportExcelResult;
-import ru.kievsan.chuserbot.domain.ReportResult;
-import ru.kievsan.chuserbot.domain.ReportTextResult;
-import ru.kievsan.chuserbot.domain.ChatExport;
-import ru.kievsan.chuserbot.domain.Mention;
-import ru.kievsan.chuserbot.domain.Member;
-import ru.kievsan.chuserbot.domain.RawChatFile;
+import ru.kievsan.chuserbot.domain.*;
+import ru.kievsan.chuserbot.domain.ReportExcelExportResult;
 import ru.kievsan.chuserbot.parser.ParserImpl;
 
 import java.io.ByteArrayInputStream;
@@ -54,11 +48,11 @@ class ReportRendererImplIntegrationTest {
 
         ChatExport chatExport = parser.parse(rawFile);
         ChatMsgAnalysisResult analysisResult = analyzer.analyze(chatExport);
-        ReportResult reportResult = renderer.render(analysisResult, "chat1.json");
+        ReportExportResult reportExportResult = renderer.render(analysisResult, "chat1.json");
 
         // текстовый ответ (totalCount = 4 < 50)
-        assertInstanceOf(ReportTextResult.class, reportResult);
-        ReportTextResult textResult = (ReportTextResult) reportResult;
+        assertInstanceOf(ReportTextExportResult.class, reportExportResult);
+        ReportTextExportResult textResult = (ReportTextExportResult) reportExportResult;
         assertEquals("chat1.json", textResult.fileName());
         assertNotNull(textResult.text());
 
@@ -87,11 +81,11 @@ class ReportRendererImplIntegrationTest {
                 createMentions(BotConfig.EXCEL_THRESHOLD / 2 + 1)
         );
 
-        ReportResult reportRes = renderer.render(analysisResult, "chat1.json");
+        ReportExportResult reportRes = renderer.render(analysisResult, "chat1.json");
 
         // Excel (totalCount >= 51)
-        assertInstanceOf(ReportExcelResult.class, reportRes);
-        ReportExcelResult excelResult = (ReportExcelResult) reportRes;
+        assertInstanceOf(ReportExcelExportResult.class, reportRes);
+        ReportExcelExportResult excelResult = (ReportExcelExportResult) reportRes;
         assertEquals("chat1.json", excelResult.fileName());
         assertNotNull(excelResult.excelBytes());
         assertNotNull(excelResult.excelFileName());
@@ -129,10 +123,10 @@ class ReportRendererImplIntegrationTest {
                 Set.of()
         );
 
-        ReportResult reportResult = renderer.render(analysisResult, "chat1.json");
+        ReportExportResult reportExportResult = renderer.render(analysisResult, "chat1.json");
 
-        assertInstanceOf(ReportTextResult.class, reportResult);
-        ReportTextResult textResult = (ReportTextResult) reportResult;
+        assertInstanceOf(ReportTextExportResult.class, reportExportResult);
+        ReportTextExportResult textResult = (ReportTextExportResult) reportExportResult;
         assertNotNull(textResult.text());
     }
 
@@ -144,10 +138,10 @@ class ReportRendererImplIntegrationTest {
                 Set.of()
         );
 
-        ReportResult reportResult = renderer.render(analysisResult, "chat1.json");
+        ReportExportResult reportExportResult = renderer.render(analysisResult, "chat1.json");
 
-        assertInstanceOf(ReportExcelResult.class, reportResult);
-        ReportExcelResult excelResult = (ReportExcelResult) reportResult;
+        assertInstanceOf(ReportExcelExportResult.class, reportExportResult);
+        ReportExcelExportResult excelResult = (ReportExcelExportResult) reportExportResult;
         assertNotNull(excelResult.excelBytes());
     }
 }

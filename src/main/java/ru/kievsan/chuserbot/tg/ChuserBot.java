@@ -13,9 +13,9 @@ import org.telegram.telegrambots.meta.api.objects.message.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 import ru.kievsan.chuserbot.domain.RawChatFile;
-import ru.kievsan.chuserbot.domain.ReportExcelResult;
-import ru.kievsan.chuserbot.domain.ReportResult;
-import ru.kievsan.chuserbot.domain.ReportTextResult;
+import ru.kievsan.chuserbot.domain.ReportExcelExportResult;
+import ru.kievsan.chuserbot.domain.ReportExportResult;
+import ru.kievsan.chuserbot.domain.ReportTextExportResult;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -177,15 +177,15 @@ public class ChuserBot implements LongPollingSingleThreadUpdateConsumer {
             RawChatFile rawFile = new RawChatFile(fileName, jsonContent);
             sendText(chatId, "Обработка файла \"" + fileName + "\"...");
 
-            ReportResult result = procService.process(rawFile);
+            ReportExportResult result = procService.process(rawFile);
 
             // Отправляем результат
             switch (result) {
-                case ReportTextResult txtResult -> sendTextResult(chatId, tчtResult.text());
-                case ReportExcelResult excelResult ->
+                case ReportTextExportResult txtResult -> sendTextResult(chatId, tчtResult.text());
+                case ReportExcelExportResult excelResult ->
                         sendExcelResult(chatId, excelResult.excelBytes(), excelResult.excelFileName());
                 default -> {
-                    log.error("Unknown ReportResult type: {}", result.getClass());
+                    log.error("Unknown ReportExportResult type: {}", result.getClass());
                     sendText(chatId, "Error forming the result!");
                 }
             }

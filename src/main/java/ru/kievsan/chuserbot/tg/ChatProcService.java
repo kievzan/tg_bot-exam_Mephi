@@ -4,7 +4,7 @@ import ru.kievsan.chuserbot.analytics.ChatMessageAnalyzer;
 import ru.kievsan.chuserbot.domain.ChatMsgAnalysisResult;
 import ru.kievsan.chuserbot.domain.ChatExport;
 import ru.kievsan.chuserbot.domain.RawChatFile;
-import ru.kievsan.chuserbot.domain.ReportResult;
+import ru.kievsan.chuserbot.domain.ReportExportResult;
 import ru.kievsan.chuserbot.export.ReportRenderer;
 import ru.kievsan.chuserbot.parser.Parser;
 
@@ -36,7 +36,7 @@ public class ChatProcService {
      * @return результат обработки в формате текста или Excel.
      * @throws ChatProcessingException если обработка не удалась.
      */
-    public ReportResult process(RawChatFile file) throws ChatProcessingException {
+    public ReportExportResult process(RawChatFile file) throws ChatProcessingException {
         try {
             // 1. Парсим JSON в доменную модель.
             ChatExport chatExport = parser.parse(file);
